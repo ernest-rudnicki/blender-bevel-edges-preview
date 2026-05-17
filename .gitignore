@@ -1,0 +1,22 @@
+# Blender / Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Blender backups and autosaves
+*.blend1
+*.blend2
+*.blend@
+
+# Local editor state
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Build artifacts
+dist/
+build/
+*.zip
