@@ -10,7 +10,8 @@ class BEVEL_EDGE_PREVIEW_PT_main(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-        layout.operator("bevel_edge_preview.report_context")
+        layout.operator("bevel_edge_preview.visualize_edges")
+        layout.operator("bevel_edge_preview.select_edges")
 
 
 classes = (
