@@ -1,16 +1,14 @@
+from . import operators, panels, properties
+
 bl_info = {
     "name": "Bevel Edge Preview",
-    "author": "Your Name",
+    "author": "Ernest Rudnicki",
     "version": (0, 1, 0),
-    "blender": (4, 0, 0),
+    "blender": (5, 0, 0),
     "location": "View3D > Sidebar",
-    "description": "Learning add-on for previewing edges affected by bevel angle logic.",
+    "description": "Add-on for previewing edges affected by bevel angle logic.",
     "category": "Mesh",
 }
-
-from . import operators
-from . import panels
-from . import properties
 
 modules = (
     properties,
