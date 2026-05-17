@@ -69,3 +69,7 @@ For later bevel detection testing, use a simple mesh with clear hard edges, such
 ## License
 
 This project is licensed under the GNU General Public License v3.0 or later.
+
+## Requirements
+1. Python
+2. Bash
