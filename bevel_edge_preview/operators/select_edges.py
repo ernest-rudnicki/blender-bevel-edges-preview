@@ -1,3 +1,4 @@
+import bmesh
 import bpy
 
 from bevel_edge_preview.utils.affected_edges import AffectedEdges
@@ -11,10 +12,15 @@ class BEVEL_EDGE_PREVIEW_OT_select_edges(bpy.types.Operator):
 
     def execute(self, context):
         obj = context.object
-        validator = AffectedEdges.get_bevel_affected_edges(obj, select=True)
+        validator, affected_edges = AffectedEdges.get_bevel_affected_edges(obj)
         if isinstance(validator, Validator):
             self.report(validator.type, validator.message)
             return {"CANCELLED"}
+
+        bpy.ops.mesh.select_all(action="DESELECT")
+        bpy.ops.mesh.select_mode(type="EDGE")
+        AffectedEdges.select_bevel_affected_edges(affected_edges)
+        bmesh.update_edit_mesh(obj.data)
 
         return {"FINISHED"}
 

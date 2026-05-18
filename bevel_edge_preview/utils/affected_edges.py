@@ -1,5 +1,4 @@
 import bmesh
-import bpy
 
 from bevel_edge_preview.utils.mesh_validation import MeshValidation
 from bevel_edge_preview.utils.modifiers import ModifiersHelper
@@ -7,17 +6,17 @@ from bevel_edge_preview.utils.modifiers import ModifiersHelper
 
 class AffectedEdges:
     @staticmethod
-    def get_bevel_affected_edges(obj, select=False):
+    def get_bevel_affected_edges(obj):
         prerequisite_validator = MeshValidation.validate_prerequisites(obj)
         if prerequisite_validator is not None:
-            return prerequisite_validator
+            return [prerequisite_validator, None]
 
         modifiers = ModifiersHelper.get_bevel_modifiers(obj)
         bevel_angles = ModifiersHelper.get_bevel_angles(modifiers)
 
         bevel_validator = MeshValidation.validate_bevel_angles(bevel_angles)
         if bevel_validator is not None:
-            return bevel_validator
+            return [bevel_validator, None]
 
         bm = bmesh.from_edit_mesh(obj.data)
         affected_edges = AffectedEdges.find_bevel_affected_edges(bm, bevel_angles)
@@ -26,16 +25,9 @@ class AffectedEdges:
             affected_edges
         )
         if affected_edges_validator is not None:
-            return affected_edges_validator
+            return [affected_edges_validator, None]
 
-        if select is True:
-            bpy.ops.mesh.select_all(action="DESELECT")
-            bpy.ops.mesh.select_mode(type="EDGE")
-            AffectedEdges.select_bevel_affected_edges(affected_edges)
-            bmesh.update_edit_mesh(obj.data)
-            return None
-
-        return affected_edges
+        return [None, affected_edges]
 
     @staticmethod
     def find_bevel_affected_edges(obj, angles):
