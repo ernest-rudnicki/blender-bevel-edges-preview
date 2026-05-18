@@ -14,9 +14,7 @@ class BEVEL_EDGE_PREVIEW_PT_main(bpy.types.Panel):
         layout.operator("bevel_edge_preview.select_edges")
 
 
-classes = (
-    BEVEL_EDGE_PREVIEW_PT_main,
-)
+classes = (BEVEL_EDGE_PREVIEW_PT_main,)
 
 
 def register():

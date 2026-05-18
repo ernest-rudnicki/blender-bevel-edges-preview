@@ -1,5 +1,4 @@
-from . import select_edges
-from . import visualize_edges
+from . import select_edges, visualize_edges
 
 modules = (
     visualize_edges,
