@@ -17,3 +17,8 @@ class AffectedEdges:
                         affected_edges.append(edge)
 
         return affected_edges
+
+    @staticmethod
+    def select_bevel_affected_edges(edges):
+        for edge in edges:
+            edge.select_set(True)

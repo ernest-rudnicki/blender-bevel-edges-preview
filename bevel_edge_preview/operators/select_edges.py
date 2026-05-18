@@ -14,22 +14,33 @@ class BEVEL_EDGE_PREVIEW_OT_select_edges(bpy.types.Operator):
     def execute(self, context):
         obj = context.object
 
-        validator = MeshValidation.validate_prerequisites(obj)
-
-        if validator is not None:
-            self.report(validator.type, validator.message)
+        prerequisite_validator = MeshValidation.validate_prerequisites(obj)
+        if prerequisite_validator is not None:
+            self.report(prerequisite_validator.type, prerequisite_validator.message)
             return {"CANCELLED"}
 
         modifiers = ModifiersHelper.get_bevel_modifiers(obj)
         bevel_angles = ModifiersHelper.get_bevel_angles(modifiers)
 
-        if len(bevel_angles) == 0:
-            self.report({"WARNING"}, "Object does not have bevel modifier")
+        bevel_validator = MeshValidation.validate_bevel_angles(bevel_angles)
+        if bevel_validator is not None:
+            self.report(bevel_validator.type, bevel_validator.message)
             return {"CANCELLED"}
 
         bm = bmesh.from_edit_mesh(obj.data)
         affected_edges = AffectedEdges.find_bevel_affected_edges(bm, bevel_angles)
-        print(bevel_angles, affected_edges)
+
+        affected_edges_validator = MeshValidation.validate_affected_edges(
+            affected_edges
+        )
+        if affected_edges_validator is not None:
+            self.report(affected_edges_validator.type, affected_edges_validator.message)
+            return {"CANCELLED"}
+
+        bpy.ops.mesh.select_all(action="DESELECT")
+        bpy.ops.mesh.select_mode(type="EDGE")
+        AffectedEdges.select_bevel_affected_edges(affected_edges)
+        bmesh.update_edit_mesh(obj.data)
 
         return {"FINISHED"}
 
