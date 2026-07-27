@@ -24,8 +24,8 @@ def select_bevel_affected_edges(obj):
 
 def set_bevel_weight_for_affected_edges(obj, weight):
     bm = bmesh.from_edit_mesh(obj.data)
-
     layer = bm.edges.layers.float.get("bevel_weight_edge")
+
     if layer is None:
         layer = bm.edges.layers.float.new("bevel_weight_edge")
 
@@ -42,6 +42,7 @@ def set_bevel_weight_for_affected_edges(obj, weight):
 
 def get_bevel_affected_edges(obj, bm):
     prerequisite_validator = validate_prerequisites(obj)
+
     if prerequisite_validator is not None:
         return [prerequisite_validator, None]
 
