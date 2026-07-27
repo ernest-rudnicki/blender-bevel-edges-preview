@@ -1,7 +1,7 @@
-from . import main_panel
+from . import edit_mesh_context_menu
 
 modules = (
-    main_panel,
+    edit_mesh_context_menu,
 )
 
 

@@ -1,11 +1,11 @@
-from . import operators, panels, properties
+from . import menus, operators, properties
 
 bl_info = {
     "name": "Bevel Edge Preview",
     "author": "Ernest Rudnicki",
     "version": (0, 1, 0),
     "blender": (5, 0, 0),
-    "location": "View3D > Sidebar",
+    "location": "View3D > Edit Mesh Context Menu",
     "description": "Add-on for previewing edges affected by bevel angle logic.",
     "category": "Mesh",
 }
@@ -13,7 +13,7 @@ bl_info = {
 modules = (
     properties,
     operators,
-    panels,
+    menus,
 )
 
 
