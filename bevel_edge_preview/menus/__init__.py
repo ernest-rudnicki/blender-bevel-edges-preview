@@ -1,8 +1,6 @@
 from . import edit_mesh_context_menu
 
-modules = (
-    edit_mesh_context_menu,
-)
+modules = (edit_mesh_context_menu,)
 
 
 def register():

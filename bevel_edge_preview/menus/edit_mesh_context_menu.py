@@ -27,24 +27,18 @@ def draw_bevel_edge_preview_menu(self, context):
         self.layout.menu(BEVEL_EDGE_PREVIEW_MT_context_menu.bl_idname)
 
 
-classes = (
-    BEVEL_EDGE_PREVIEW_MT_context_menu,
-)
+classes = (BEVEL_EDGE_PREVIEW_MT_context_menu,)
 
 
 def register():
     for cls in classes:
         bpy.utils.register_class(cls)
 
-    bpy.types.VIEW3D_MT_edit_mesh_context_menu.prepend(
-        draw_bevel_edge_preview_menu
-    )
+    bpy.types.VIEW3D_MT_edit_mesh_context_menu.prepend(draw_bevel_edge_preview_menu)
 
 
 def unregister():
-    bpy.types.VIEW3D_MT_edit_mesh_context_menu.remove(
-        draw_bevel_edge_preview_menu
-    )
+    bpy.types.VIEW3D_MT_edit_mesh_context_menu.remove(draw_bevel_edge_preview_menu)
 
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
