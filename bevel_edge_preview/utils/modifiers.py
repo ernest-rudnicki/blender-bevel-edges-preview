@@ -1,14 +1,12 @@
-class ModifiersHelper:
-    @staticmethod
-    def get_bevel_modifiers(obj):
-        if obj is None:
-            return []
+def get_bevel_modifiers(obj):
+    if obj is None:
+        return []
 
-        return [modifier for modifier in obj.modifiers if modifier.type == "BEVEL"]
+    return [modifier for modifier in obj.modifiers if modifier.type == "BEVEL"]
 
-    @staticmethod
-    def get_bevel_angles(modifiers):
-        if modifiers is None:
-            return []
 
-        return [modifier.angle_limit for modifier in modifiers]
+def get_bevel_angles(modifiers):
+    if modifiers is None:
+        return []
+
+    return [modifier.angle_limit for modifier in modifiers]
