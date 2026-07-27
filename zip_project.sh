@@ -12,3 +12,4 @@ then
 fi
 
 python -m zipfile -c $COMPRESSED_FILE_PATH $PROJECT_FOLDER
+echo "Build completed successfully"
