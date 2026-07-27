@@ -1,3 +1,9 @@
+def set_bevel_weight_method(obj, method):
+    modifiers = get_bevel_modifiers(obj)
+    for modifier in modifiers:
+        modifier.limit_method = method
+
+
 def get_bevel_modifiers(obj):
     if obj is None:
         return []

@@ -17,8 +17,9 @@ class BEVEL_EDGE_PREVIEW_MT_context_menu(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        layout.operator("bevel_edge_preview.visualize_edges")
+        layout.operator("bevel_edge_preview.set_bevel_weight")
         layout.operator("bevel_edge_preview.select_edges")
+        layout.operator("bevel_edge_preview.visualize_edges")
 
 
 def draw_bevel_edge_preview_menu(self, context):
