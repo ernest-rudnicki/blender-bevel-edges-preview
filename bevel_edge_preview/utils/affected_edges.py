@@ -7,6 +7,8 @@ from bevel_edge_preview.utils.mesh_validation import (
     validate_prerequisites,
 )
 from bevel_edge_preview.utils.modifiers import get_bevel_angles, get_bevel_modifiers
+from bevel_edge_preview.utils.preview_draw import draw_affected_edges_preview
+from bevel_edge_preview.utils.preview_state import preview_state
 
 
 def select_bevel_affected_edges(obj):
@@ -38,6 +40,37 @@ def set_bevel_weight_for_affected_edges(obj, weight):
         edge[layer] = weight
 
     bmesh.update_edit_mesh(obj.data)
+
+
+def visualize_affected_edges(context):
+    obj = context.object
+    bm = bmesh.from_edit_mesh(obj.data)
+
+    if preview_state.get_is_active():
+        draw_handler = preview_state.get_draw_handler()
+
+        if draw_handler is not None:
+            bpy.types.SpaceView3D.draw_handler_remove(draw_handler, "WINDOW")
+
+        preview_state.clear_state()
+        context.area.tag_redraw()
+        return None
+
+    validator, affected_edges = get_bevel_affected_edges(obj, bm)
+    if validator is not None:
+        return validator
+
+    plain_coordinates = convert_edges_to_lines_positions(obj, affected_edges)
+    preview_state.set_line_coordinates(plain_coordinates)
+    preview_state.set_is_active(True)
+
+    handler = bpy.types.SpaceView3D.draw_handler_add(
+        draw_affected_edges_preview, (), "WINDOW", "POST_VIEW"
+    )
+    preview_state.set_draw_handler(handler)
+    context.area.tag_redraw()
+
+    return None
 
 
 def get_bevel_affected_edges(obj, bm):
@@ -84,3 +117,13 @@ def find_bevel_affected_edges(obj, angles):
 def select_edges(affected_edges):
     for edge in affected_edges:
         edge.select_set(True)
+
+
+def convert_edges_to_lines_positions(obj, affected_edges):
+    positions = []
+    for edge in affected_edges:
+        first_point = obj.matrix_world @ edge.verts[0].co
+        second_point = obj.matrix_world @ edge.verts[1].co
+        positions.append(first_point)
+        positions.append(second_point)
+    return positions

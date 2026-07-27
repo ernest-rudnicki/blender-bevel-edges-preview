@@ -15,7 +15,10 @@ class BEVEL_EDGE_PREVIEW_OT_set_bevel_weight(bpy.types.Operator):
     def execute(self, context):
         obj = context.object
 
-        set_bevel_weight_for_affected_edges(obj, 1.0)
+        validator = set_bevel_weight_for_affected_edges(obj, 1.0)
+        if validator is not None:
+            return validator
+
         bmesh.update_edit_mesh(obj.data)
 
         set_bevel_weight_method(obj, "WEIGHT")

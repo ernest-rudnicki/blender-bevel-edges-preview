@@ -1,5 +1,8 @@
 import bpy
 
+from bevel_edge_preview.utils.affected_edges import visualize_affected_edges
+from bevel_edge_preview.utils.preview_state import preview_state
+
 
 class BEVEL_EDGE_PREVIEW_OT_visualize_edges(bpy.types.Operator):
     bl_idname = "bevel_edge_preview.visualize_edges"
@@ -9,11 +12,10 @@ class BEVEL_EDGE_PREVIEW_OT_visualize_edges(bpy.types.Operator):
     )
 
     def execute(self, context):
-        obj = context.object
+        validator = visualize_affected_edges(context)
 
-        if obj is None:
-            self.report({"WARNING"}, "No active object")
-            return {"CANCELLED"}
+        if validator is not None:
+            return validator
 
         return {"FINISHED"}
 
@@ -27,5 +29,11 @@ def register():
 
 
 def unregister():
+    if preview_state.get_is_active():
+        draw_handler = preview_state.get_draw_handler()
+        if draw_handler is not None:
+            bpy.types.SpaceView3D.draw_handler_remove(draw_handler, "WINDOW")
+        preview_state.clear_state()
+
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
