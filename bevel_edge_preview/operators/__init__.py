@@ -1,9 +1,10 @@
-from . import select_edges, set_bevel_weight, visualize_edges
+from . import reset_bevel_weight, select_edges, set_bevel_weight, visualize_edges
 
 modules = (
     visualize_edges,
     select_edges,
     set_bevel_weight,
+    reset_bevel_weight,
 )
 
 

@@ -19,9 +19,7 @@ class BEVEL_EDGE_PREVIEW_MT_context_menu(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        layout.operator("bevel_edge_preview.set_bevel_weight")
         layout.operator("bevel_edge_preview.select_edges")
-
         if preview_state.get_is_active():
             layout.operator(
                 "bevel_edge_preview.visualize_edges", text="Hide Bevel Edge Preview"
@@ -30,6 +28,8 @@ class BEVEL_EDGE_PREVIEW_MT_context_menu(bpy.types.Menu):
             layout.operator(
                 "bevel_edge_preview.visualize_edges", text="Show Bevel Edge Preview"
             )
+        layout.operator("bevel_edge_preview.set_bevel_weight")
+        layout.operator("bevel_edge_preview.reset_bevel_weight")
 
 
 def draw_bevel_edge_preview_menu(self, context):
