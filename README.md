@@ -4,6 +4,9 @@ Blender Bevel Edge Preview is an Blender add-on for finding edges that would be 
 
 The goal is to make it easier to preview, inspect, select, and eventually convert bevel-angle candidates into bevel weights.
 
+<img width="1024" height="768" alt="Animation image representing the functionality of the addon" src="https://github.com/user-attachments/assets/82e6e829-7e24-4b0b-86b2-d5386141fbc7" />
+
+
 ## Why This Exists
 
 Blender's Bevel Modifier can bevel edges based on the angle between adjacent faces, but it is not always easy to see exactly which original mesh edges are being targeted before applying or adjusting the modifier.
