@@ -5,6 +5,7 @@ from bevel_edge_preview.utils.affected_edges import (
     set_bevel_weight_for_affected_edges,
 )
 from bevel_edge_preview.utils.modifiers import set_bevel_weight_method
+from bevel_edge_preview.utils.validators import Validator
 
 
 class BEVEL_EDGE_PREVIEW_OT_set_bevel_weight(bpy.types.Operator):
@@ -16,8 +17,10 @@ class BEVEL_EDGE_PREVIEW_OT_set_bevel_weight(bpy.types.Operator):
         obj = context.object
 
         validator = set_bevel_weight_for_affected_edges(obj, 0.0)
-        if validator is not None:
-            return validator
+
+        if isinstance(validator, Validator):
+            self.report(validator.type, validator.message)
+            return {"CANCELLED"}
 
         bmesh.update_edit_mesh(obj.data)
 

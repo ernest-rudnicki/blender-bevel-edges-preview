@@ -2,6 +2,7 @@ import bpy
 
 from bevel_edge_preview.utils.affected_edges import visualize_affected_edges
 from bevel_edge_preview.utils.preview_state import preview_state
+from bevel_edge_preview.utils.validators import Validator
 
 
 class BEVEL_EDGE_PREVIEW_OT_visualize_edges(bpy.types.Operator):
@@ -14,8 +15,9 @@ class BEVEL_EDGE_PREVIEW_OT_visualize_edges(bpy.types.Operator):
     def execute(self, context):
         validator = visualize_affected_edges(context)
 
-        if validator is not None:
-            return validator
+        if isinstance(validator, Validator):
+            self.report(validator.type, validator.message)
+            return {"CANCELLED"}
 
         return {"FINISHED"}
 

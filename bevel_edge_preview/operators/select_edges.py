@@ -12,6 +12,7 @@ class BEVEL_EDGE_PREVIEW_OT_select_edges(bpy.types.Operator):
     def execute(self, context):
         obj = context.object
         validator = select_bevel_affected_edges(obj)
+
         if isinstance(validator, Validator):
             self.report(validator.type, validator.message)
             return {"CANCELLED"}
