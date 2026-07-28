@@ -2,7 +2,7 @@
 
 BUILD_DIRECTORY="./build"
 PROJECT_FOLDER="./bevel_edge_preview"
-COMPRESSED_FILE_PATH="$BUILD_DIRECTORY/bevel.edge_preview.zip"
+COMPRESSED_FILE_PATH="$BUILD_DIRECTORY/bevel_edge_preview_$VERSION.zip"
 VERSION=$(grep '"version"' "$PROJECT_FOLDER/__init__.py" | grep -oP '"version"\s*:\s*\(\K[0-9,\s]+(?=\))' | tr -d ' ' | tr ',' '.')
 
 cp "./LICENSE" "$PROJECT_FOLDER"
