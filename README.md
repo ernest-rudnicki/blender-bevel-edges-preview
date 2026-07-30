@@ -63,6 +63,18 @@ The current version can be tested by building and installing the add-on ZIP:
 
 For later bevel detection testing, use a simple mesh with clear hard edges, such as a cube or a low-poly object with different face angles.
 
+## Development Setup
+
+For editor tooling, linting, and Blender Python stubs, run:
+
+```bash
+bash scripts/setup-dev.sh
+```
+
+This creates a local `.venv` and installs the development requirements from `requirements-dev.txt`.
+
+The virtual environment is only for development tools. Blender still runs the add-on with Blender's own Python.
+
 ## License
 
 This project is licensed under the GNU General Public License v3.0 or later.
